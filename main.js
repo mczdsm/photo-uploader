@@ -1,6 +1,7 @@
 import Cropper from 'cropperjs';
 
-const imageInput = document.getElementById('imageInput');
+const video = document.getElementById('video');
+const captureButton = document.getElementById('captureButton');
 const canvas = document.getElementById('canvas');
 const cropButton = document.getElementById('cropButton');
 const resizeButton = document.getElementById('resizeButton');
@@ -11,28 +12,30 @@ const ctx = canvas.getContext('2d');
 
 let cropper;
 
-imageInput.addEventListener('change', (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        if (cropper) {
-          cropper.destroy();
-        }
-        cropper = new Cropper(canvas, {
-          aspectRatio: NaN, // Free aspect ratio by default
-          viewMode: 1,     // Allow image to be smaller than the container
-        });
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
+// Access the camera and stream to the video element
+navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }) // Use 'environment' for rear camera, 'user' for front
+  .then((stream) => {
+    video.srcObject = stream;
+    video.play();
+  })
+  .catch((err) => {
+    console.error('Error accessing camera:', err);
+    alert('Error accessing the camera: ' + err.message);
+  });
+
+captureButton.addEventListener('click', () => {
+  // Draw the current video frame onto the canvas
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    if (cropper) {
+      cropper.destroy();
+    }
+    cropper = new Cropper(canvas, {
+      aspectRatio: NaN, // Free aspect ratio by default
+      viewMode: 1,     // Allow image to be smaller than the container
+    });
 });
 
 cropButton.addEventListener('click', () => {
