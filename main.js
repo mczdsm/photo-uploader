@@ -61,16 +61,26 @@ cropButton.addEventListener('click', () => {
     // Clear the canvas before drawing the cropped image
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    canvas.width = croppedCanvas.width;
-    canvas.height = croppedCanvas.height;
-    ctx.drawImage(croppedCanvas, 0, 0);
+    // *** Resize directly to 300x300 ***
+    const resizedCanvas = document.createElement('canvas');
+    resizedCanvas.width = 300;
+    resizedCanvas.height = 300;
+    const resizedContext = resizedCanvas.getContext('2d');
+    resizedContext.drawImage(croppedCanvas, 0, 0, 300, 300);
+
+    canvas.width = 300;
+    canvas.height = 300;
+    ctx.drawImage(resizedCanvas, 0, 0);
+
     cropper.destroy();
-    cropper = new Cropper(canvas, {
-      aspectRatio: 1, // Set default aspect ratio to 1 (square)
-      viewMode: 1,
-    });
-     //Hide send button
-     sendButton.style.display = 'none';
+    cropper = null;
+
+    // *** Show send button, patient ID input, and label; hide crop button ***
+    sendButton.style.display = 'block';
+    patientIdInput.style.display = 'inline-block';
+    patientIdLabel.style.display = 'inline-block';
+    cropButton.style.display = 'none';
+    continueButton.style.display = 'none'; // Also hide continue button
   }
 });
 
