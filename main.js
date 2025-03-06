@@ -3,10 +3,9 @@ import Cropper from 'cropperjs';
 const photoInput = document.getElementById('photoInput');
 const canvas = document.getElementById('canvas');
 const cropButton = document.getElementById('cropButton');
-const resizeButton = document.getElementById('resizeButton');
+const continueButton = document.getElementById('continueButton');
 const sendButton = document.getElementById('sendButton');
-const widthInput = document.getElementById('width');
-const heightInput = document.getElementById('height');
+
 const ctx = canvas.getContext('2d');
 
 let cropper;
@@ -31,6 +30,8 @@ photoInput.addEventListener('change', (event) => {
           aspectRatio: 1, // Set default aspect ratio to 1 (square)
           viewMode: 1,
         });
+        //Hide send button
+        sendButton.style.display = 'none';
       };
       img.src = e.target.result;
     };
@@ -48,43 +49,39 @@ cropButton.addEventListener('click', () => {
     canvas.height = croppedCanvas.height;
     ctx.drawImage(croppedCanvas, 0, 0);
     cropper.destroy();
-        cropper = new Cropper(canvas, {
-          aspectRatio: 1, // Set default aspect ratio to 1 (square)
-          viewMode: 1,
-        });
+    cropper = new Cropper(canvas, {
+      aspectRatio: 1, // Set default aspect ratio to 1 (square)
+      viewMode: 1,
+    });
+     //Hide send button
+     sendButton.style.display = 'none';
   }
 });
 
-resizeButton.addEventListener('click', () => {
-  const width = parseInt(widthInput.value, 10);
-  const height = parseInt(heightInput.value, 10);
-
-  if (isNaN(width) || isNaN(height)) {
-    alert('Please enter valid width and height.');
-    return;
-  }
-
+continueButton.addEventListener('click', () => {
   const resizedCanvas = document.createElement('canvas');
-  resizedCanvas.width = width;
-  resizedCanvas.height = height;
+  resizedCanvas.width = 300;
+  resizedCanvas.height = 300;
   const resizedContext = resizedCanvas.getContext('2d');
 
-  resizedContext.drawImage(canvas, 0, 0, width, height);
+  resizedContext.drawImage(canvas, 0, 0, 300, 300);
 
   // Clear the main canvas before drawing the resized image
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  canvas.width = width;
-  canvas.height = height;
+  canvas.width = 300;
+  canvas.height = 300;
   ctx.drawImage(resizedCanvas, 0, 0);
 
-  if (cropper) {
+    if (cropper) {
     cropper.destroy();
-    cropper = new Cropper(canvas, {
-          aspectRatio: 1, // Set default aspect ratio to 1 (square)
-          viewMode: 1,
-        });
+    cropper = null; // No need to reinitialize Cropper after final resize
   }
+
+  // Show send button and hide continue
+  sendButton.style.display = 'block';
+  continueButton.style.display = 'none';
+
 });
 
 sendButton.addEventListener('click', () => {
