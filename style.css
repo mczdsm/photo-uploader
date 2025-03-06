@@ -24,7 +24,8 @@ input[type="number"] {
 
 .take-photo-button,
 #sendButton,
-#startOverButton { /* Apply same styles to all buttons */
+#startOverButton,
+#cropButton { /* Apply same styles to all buttons */
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
@@ -54,6 +55,6 @@ input[type="number"] {
   margin-bottom: 10px;
 }
 
-#cropButton, #continueButton {
+#cropButton {
   display: none;
 }

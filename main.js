@@ -3,7 +3,6 @@ import Cropper from 'cropperjs';
 const photoInput = document.getElementById('photoInput');
 const canvas = document.getElementById('canvas');
 const cropButton = document.getElementById('cropButton');
-const continueButton = document.getElementById('continueButton');
 const sendButton = document.getElementById('sendButton');
 const patientIdInput = document.getElementById('patientId');
 const patientIdLabel = document.querySelector('label[for="patientId"]');
@@ -37,9 +36,8 @@ photoInput.addEventListener('change', (event) => {
         });
         //Hide send button
         sendButton.style.display = 'none';
-        // Show crop and continue buttons
+        // Show crop button
         cropButton.style.display = 'inline-block';
-        continueButton.style.display = 'inline-block';
 
         // Show the canvas
         canvas.style.display = 'block';
@@ -84,40 +82,7 @@ cropButton.addEventListener('click', () => {
     patientIdInput.style.display = 'inline-block';
     patientIdLabel.style.display = 'inline-block';
     cropButton.style.display = 'none';
-    continueButton.style.display = 'none'; // Also hide continue button
   }
-});
-
-continueButton.addEventListener('click', () => {
-  const resizedCanvas = document.createElement('canvas');
-  resizedCanvas.width = 300;
-  resizedCanvas.height = 300;
-  const resizedContext = resizedCanvas.getContext('2d');
-
-  resizedContext.drawImage(canvas, 0, 0, 300, 300);
-
-  // Clear the main canvas before drawing the resized image
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  canvas.width = 300;
-  canvas.height = 300;
-  ctx.drawImage(resizedCanvas, 0, 0);
-
-    if (cropper) {
-    cropper.destroy();
-    cropper = null; // No need to reinitialize Cropper after final resize
-  }
-
-  // Show send button and hide continue
-  sendButton.style.display = 'block';
-  continueButton.style.display = 'none';
-  //Hide crop button
-  cropButton.style.display = 'none';
-
-  // Show patient ID input and label
-  patientIdInput.style.display = 'inline-block';
-  patientIdLabel.style.display = 'inline-block';
-
 });
 
 sendButton.addEventListener('click', () => {
