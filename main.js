@@ -9,6 +9,7 @@ const patientIdInput = document.getElementById('patientId');
 const patientIdLabel = document.querySelector('label[for="patientId"]');
 const startOverButton = document.getElementById('startOverButton');
 const takePhotoButton = document.querySelector('.take-photo-button');
+const titleElement = document.querySelector('h1'); // Get the title element
 
 const ctx = canvas.getContext('2d');
 
@@ -48,6 +49,9 @@ photoInput.addEventListener('change', (event) => {
 
         // Show the start over button
         startOverButton.style.display = 'inline-block';
+
+        // Hide the title
+        titleElement.style.display = 'none';
       };
       img.src = e.target.result;
     };
