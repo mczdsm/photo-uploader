@@ -5,6 +5,7 @@ const canvas = document.getElementById('canvas');
 const cropButton = document.getElementById('cropButton');
 const continueButton = document.getElementById('continueButton');
 const sendButton = document.getElementById('sendButton');
+const patientIdInput = document.getElementById('patientId');
 
 const ctx = canvas.getContext('2d');
 
@@ -85,6 +86,13 @@ continueButton.addEventListener('click', () => {
 });
 
 sendButton.addEventListener('click', () => {
+  const patientId = patientIdInput.value;
+
+  if (!patientId) {
+    alert('Please enter a Patient ID.');
+    return;
+  }
+
   canvas.toBlob((blob) => {
     const formData = new FormData();
     formData.append('image', blob);
@@ -92,6 +100,9 @@ sendButton.addEventListener('click', () => {
     fetch('https://n8n.amcs.tech/webhook-test/picdemo', {
       method: 'POST',
       body: formData,
+      headers: {
+        'X-Patient-ID': patientId, // Add the Patient ID as a custom header
+      },
     })
     .then(response => {
       if (!response.ok) {
