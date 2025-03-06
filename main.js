@@ -6,6 +6,7 @@ const cropButton = document.getElementById('cropButton');
 const continueButton = document.getElementById('continueButton');
 const sendButton = document.getElementById('sendButton');
 const patientIdInput = document.getElementById('patientId');
+const patientIdLabel = document.querySelector('label[for="patientId"]');
 
 const ctx = canvas.getContext('2d');
 
@@ -82,6 +83,12 @@ continueButton.addEventListener('click', () => {
   // Show send button and hide continue
   sendButton.style.display = 'block';
   continueButton.style.display = 'none';
+  //Hide crop button
+  cropButton.style.display = 'none';
+
+  // Show patient ID input and label
+  patientIdInput.style.display = 'inline-block';
+  patientIdLabel.style.display = 'inline-block';
 
 });
 
