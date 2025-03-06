@@ -20,3 +20,33 @@ body {
     width: 60px;
     margin: 0 5px;
   }
+
+  .take-photo-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+    /* Hide the actual file input */
+  #photoInput {
+    display: none;
+  }
+
+    /* Center the Send to EMR button */
+  #sendButton {
+    display: block; /* Ensure it's block-level for margin auto to work */
+    margin: 20px auto; /* Top/bottom margin of 20px, auto left/right */
+  }
+
+    /* Add spacing below the Patient ID input */
+  #patientId {
+    margin-bottom: 10px;
+  }
