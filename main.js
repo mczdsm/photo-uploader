@@ -120,6 +120,8 @@ sendButton.addEventListener('click', () => {
     .then(data => {
       console.log('Success:', data);
       alert('Image sent successfully!');
+      // Reload the page after successful send
+      window.location.reload();
     })
     .catch((error) => {
       console.error('Error:', error);
