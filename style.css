@@ -21,7 +21,8 @@ body {
     margin: 0 5px;
   }
 
-  .take-photo-button {
+  .take-photo-button,
+  #sendButton { /* Apply same styles to both buttons */
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
