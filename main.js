@@ -34,6 +34,9 @@ photoInput.addEventListener('change', (event) => {
         });
         //Hide send button
         sendButton.style.display = 'none';
+        // Show crop and continue buttons
+        cropButton.style.display = 'inline-block';
+        continueButton.style.display = 'inline-block';
       };
       img.src = e.target.result;
     };

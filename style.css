@@ -51,3 +51,7 @@ body {
   #patientId {
     margin-bottom: 10px;
   }
+
+  #cropButton, #continueButton {
+    display: none;
+  }
