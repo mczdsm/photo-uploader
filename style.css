@@ -1,57 +1,59 @@
 body {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
 
-  #canvas, #video {
-    margin-top: 20px;
-    max-width: 100%;
-    border: 1px solid black;
-  }
+#canvas, #video {
+  margin-top: 20px;
+  max-width: 100%;
+  border: 1px solid black;
+  display: none; /* Hide canvas initially */
+}
 
-  div {
-    margin-top: 10px;
-  }
+div {
+  margin-top: 10px;
+}
 
-  input[type="number"] {
-    width: 60px;
-    margin: 0 5px;
-  }
+input[type="number"] {
+  width: 60px;
+  margin: 0 5px;
+}
 
-  .take-photo-button,
-  #sendButton { /* Apply same styles to both buttons */
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
+.take-photo-button,
+#sendButton,
+#startOverButton { /* Apply same styles to all buttons */
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
 
-    /* Hide the actual file input */
-  #photoInput {
-    display: none;
-  }
+  /* Hide the actual file input */
+#photoInput {
+  display: none;
+}
 
-    /* Center the Send to EMR button */
-  #sendButton {
-    display: block; /* Ensure it's block-level for margin auto to work */
-    margin: 20px auto; /* Top/bottom margin of 20px, auto left/right */
-  }
+  /* Center the Send to EMR button */
+#sendButton {
+  display: block; /* Ensure it's block-level for margin auto to work */
+  margin: 20px auto; /* Top/bottom margin of 20px, auto left/right */
+}
 
-    /* Add spacing below the Patient ID input */
-  #patientId {
-    margin-bottom: 10px;
-  }
+  /* Add spacing below the Patient ID input */
+#patientId {
+  margin-bottom: 10px;
+}
 
-  #cropButton, #continueButton {
-    display: none;
-  }
+#cropButton, #continueButton {
+  display: none;
+}

@@ -7,6 +7,8 @@ const continueButton = document.getElementById('continueButton');
 const sendButton = document.getElementById('sendButton');
 const patientIdInput = document.getElementById('patientId');
 const patientIdLabel = document.querySelector('label[for="patientId"]');
+const startOverButton = document.getElementById('startOverButton');
+const takePhotoButton = document.querySelector('.take-photo-button');
 
 const ctx = canvas.getContext('2d');
 
@@ -37,6 +39,15 @@ photoInput.addEventListener('change', (event) => {
         // Show crop and continue buttons
         cropButton.style.display = 'inline-block';
         continueButton.style.display = 'inline-block';
+
+        // Show the canvas
+        canvas.style.display = 'block';
+
+        // Hide the take photo button
+        takePhotoButton.style.display = 'none';
+
+        // Show the start over button
+        startOverButton.style.display = 'inline-block';
       };
       img.src = e.target.result;
     };
@@ -131,4 +142,8 @@ sendButton.addEventListener('click', () => {
       alert(`Error sending image: ${error.message}`);
     });
   }, 'image/jpeg');
+});
+
+startOverButton.addEventListener('click', () => {
+  window.location.reload();
 });
