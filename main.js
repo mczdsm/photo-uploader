@@ -110,7 +110,7 @@ continueButton.addEventListener('click', () => {
         return response.json(); // Expecting JSON response
     })
     .then(data => {
-        patientDOB = data.dob; // Store the DOB, assuming the response has a 'dob' field
+        patientDOB = data.patientDOB; // Store the DOB, assuming the response has a 'dob' field
         if (!patientDOB) {
           throw new Error('DOB not found in response');
         }
