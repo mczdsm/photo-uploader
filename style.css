@@ -26,9 +26,9 @@ input[type="number"] {
 #sendButton,
 #startOverButton,
 #cropButton,
-#continueButton, /* Style continue button */
-#confirmAndSendButton { /* Style confirmAndSendButton */
-  background-color: #4CAF50; /* Green */
+#continueButton,
+#confirmAndSendButton {
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -41,18 +41,15 @@ input[type="number"] {
   border-radius: 5px;
 }
 
-  /* Hide the actual file input */
 #photoInput {
   display: none;
 }
 
-  /* Center the Send to EMR button */
 #sendButton {
-  display: block; /* Ensure it's block-level for margin auto to work */
-  margin: 20px auto; /* Top/bottom margin of 20px, auto left/right */
+  display: block;
+  margin: 20px auto;
 }
 
-  /* Add spacing below the Patient ID input */
 #patientId {
   margin-bottom: 10px;
 }

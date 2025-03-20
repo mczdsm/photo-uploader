@@ -3,18 +3,18 @@ import Cropper from 'cropperjs';
 const photoInput = document.getElementById('photoInput');
 const canvas = document.getElementById('canvas');
 const cropButton = document.getElementById('cropButton');
-const continueButton = document.getElementById('continueButton'); // Renamed sendButton
+const continueButton = document.getElementById('continueButton');
 const patientIdInput = document.getElementById('patientId');
 const startOverButton = document.getElementById('startOverButton');
 const takePhotoButton = document.querySelector('.take-photo-button');
-const titleElement = document.querySelector('h1'); // Get the title element
+const titleElement = document.querySelector('h1');
 const dobDisplay = document.getElementById('dobDisplay');
-const confirmAndSendButton = document.getElementById('confirmAndSendButton'); // New button
+const confirmAndSendButton = document.getElementById('confirmAndSendButton');
 
 const ctx = canvas.getContext('2d');
 
 let cropper;
-let patientDOB = ''; // Variable to store the patient's DOB
+let patientDOB = '';
 
 photoInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
@@ -23,9 +23,7 @@ photoInput.addEventListener('change', (event) => {
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
-        // Clear the canvas before drawing the new image
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         canvas.width = img.width;
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0, img.width, img.height);
@@ -33,24 +31,13 @@ photoInput.addEventListener('change', (event) => {
           cropper.destroy();
         }
         cropper = new Cropper(canvas, {
-          aspectRatio: 1, // Set default aspect ratio to 1 (square)
+          aspectRatio: 1,
           viewMode: 1,
         });
-        //Hide send button
-        continueButton.style.display = 'none';
-        // Show crop button
         cropButton.style.display = 'inline-block';
-
-        // Show the canvas
         canvas.style.display = 'block';
-
-        // Hide the take photo button
         takePhotoButton.style.display = 'none';
-
-        // Show the start over button
         startOverButton.style.display = 'inline-block';
-
-        // Hide the title
         titleElement.style.display = 'none';
       };
       img.src = e.target.result;
@@ -62,10 +49,8 @@ photoInput.addEventListener('change', (event) => {
 cropButton.addEventListener('click', () => {
   if (cropper) {
     const croppedCanvas = cropper.getCroppedCanvas();
-    // Clear the canvas before drawing the cropped image
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // *** Resize directly to 300x300 ***
     const resizedCanvas = document.createElement('canvas');
     resizedCanvas.width = 300;
     resizedCanvas.height = 300;
@@ -79,7 +64,7 @@ cropButton.addEventListener('click', () => {
     cropper.destroy();
     cropper = null;
 
-    // *** Show patient ID input and continue button; hide crop button ***
+    // Show elements after cropping
     patientIdInput.style.display = 'inline-block';
     continueButton.style.display = 'block';
     cropButton.style.display = 'none';
@@ -94,23 +79,22 @@ continueButton.addEventListener('click', () => {
         return;
     }
 
-    // *** Fetch DOB from the new n8n webhook ***
-    fetch('https://n8n.amcs.tech/webhook-test/dob-verification', { // Replace with your actual webhook URL
+    fetch('https://n8n.amcs.tech/webhook/dob-verification', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-Patient-ID': patientId, // Send Patient ID in the header
+            'X-Patient-ID': patientId,
         },
-        body: JSON.stringify({ patientId: patientId }) // Send Patient ID in the body (optional, depends on your webhook)
+        body: JSON.stringify({ patientId: patientId })
     })
     .then(response => {
         if (!response.ok) {
             throw new Error(`Network response was not ok, status: ${response.status}`);
         }
-        return response.json(); // Expecting JSON response
+        return response.json();
     })
     .then(data => {
-        patientDOB = data.patientDOB; // Store the DOB, assuming the response has a 'dob' field
+        patientDOB = data.patientDOB;
         if (!patientDOB) {
           throw new Error('DOB not found in response');
         }
@@ -118,7 +102,6 @@ continueButton.addEventListener('click', () => {
         dobDisplay.style.display = 'block';
         confirmAndSendButton.style.display = 'block';
 
-        // Hide input and continue button
         patientIdInput.style.display = 'none';
         continueButton.style.display = 'none';
     })
@@ -129,18 +112,18 @@ continueButton.addEventListener('click', () => {
 });
 
 confirmAndSendButton.addEventListener('click', () => {
-  const patientId = patientIdInput.value; // Get Patient ID again
+  const patientId = patientIdInput.value;
 
   canvas.toBlob((blob) => {
     const formData = new FormData();
     formData.append('image', blob);
-    formData.append('dob', patientDOB); // Include DOB in the form data
+    formData.append('dob', patientDOB);
 
     fetch('https://n8n.amcs.tech/webhook-test/picdemo', {
       method: 'POST',
       body: formData,
       headers: {
-        'X-Patient-ID': patientId, // Keep sending Patient ID as a header
+        'X-Patient-ID': patientId,
       },
     })
     .then(response => {
@@ -152,7 +135,6 @@ confirmAndSendButton.addEventListener('click', () => {
     .then(data => {
       console.log('Success:', data);
       alert('Image and DOB sent successfully!');
-      // Reload the page after successful send
       window.location.reload();
     })
     .catch((error) => {
