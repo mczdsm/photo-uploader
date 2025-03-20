@@ -18,11 +18,14 @@
   </div>
 
   <div>
-      <button id="cropButton">Crop</button>
+      <button id="cropButton" style="display: none;">Crop</button>
       
-      <label for="patientId" style="display: none;">Patient ID:</label>
-      <input type="text" id="patientId" style="display: none;">
-      <button id="sendButton" style="display: none;">Send to EMR</button>
+      <label for="patientId">Patient ID:</label>
+      <input type="text" id="patientId">
+      <button id="continueButton" style="display: none;">Continue</button>
+
+      <p id="dobDisplay" style="display: none;"></p>
+      <button id="confirmAndSendButton" style="display: none;">Confirm and Send to EMR</button>
   </div>
 
   <button id="startOverButton" style="display: none;">Start Over</button>

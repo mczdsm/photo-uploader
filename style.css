@@ -25,7 +25,9 @@ input[type="number"] {
 .take-photo-button,
 #sendButton,
 #startOverButton,
-#cropButton { /* Apply same styles to all buttons */
+#cropButton,
+#continueButton, /* Style continue button */
+#confirmAndSendButton { /* Style confirmAndSendButton */
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
@@ -53,8 +55,4 @@ input[type="number"] {
   /* Add spacing below the Patient ID input */
 #patientId {
   margin-bottom: 10px;
-}
-
-#cropButton {
-  display: none;
 }
