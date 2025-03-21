@@ -95,10 +95,13 @@ continueButton.addEventListener('click', () => {
     })
     .then(data => {
         patientDOB = data.patientDOB;
-        if (!patientDOB) {
-          throw new Error('DOB not found in response');
+        const lastName = data.last; // Get the last name
+        if (!patientDOB || !lastName) {
+          throw new Error('DOB or last name not found in response');
         }
-        dobDisplay.textContent = `Patient DOB: ${patientDOB}`;
+
+        // Display both DOB and last name
+        dobDisplay.textContent = `Patient DOB: ${patientDOB}, Last Name: ${lastName}`;
         dobDisplay.style.display = 'block';
         confirmAndSendButton.style.display = 'block';
 
