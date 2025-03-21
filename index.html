@@ -1,1 +1,38 @@
-...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPA Patient Photo Capture</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="node_modules/cropperjs/dist/cropper.min.css">
+</head>
+<body>
+  <h1>FPA Patient Photo Capture</h1>
+
+  <label for="photoInput" class="take-photo-button">Take Photo</label>
+  <input type="file" id="photoInput" accept="image/*" capture="camera">
+
+  <div>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <div>
+      <button id="cropButton" style="display: none;">Crop</button>
+      
+      
+      <label for="patientId" style="display: none;">Patient ID:</label>
+      <input type="text" id="patientId" style="display: none;">
+      <button id="continueButton" style="display: none;">Continue</button>
+
+      <p id="dobDisplay" style="display: none;"></p>
+      <button id="confirmAndSendButton" style="display: none;">Confirm and Send to EMR</button>
+  </div>
+
+    <button id="startOverButton" style="display: none;">Start Over</button>
+
+
+  <script type="module" src="/main.js"></script>
+
+</body>
+</html>

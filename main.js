@@ -101,8 +101,8 @@ continueButton.addEventListener('click', () => {
           throw new Error('DOB or last name not found in response');
         }
 
-        // Display both DOB and last name
-        dobDisplay.textContent = `Patient DOB: ${patientDOB}, Last Name: ${lastName}`; // Corrected line
+        // Display DOB and last name on separate lines
+        dobDisplay.innerHTML = `Patient DOB: ${patientDOB}<br>Last Name: ${lastName}`;
         dobDisplay.style.display = 'block';
         confirmAndSendButton.style.display = 'block';
 
