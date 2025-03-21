@@ -65,6 +65,7 @@ cropButton.addEventListener('click', () => {
     cropper = null;
 
     // Show elements after cropping
+    document.querySelector('label[for="patientId"]').style.display = 'inline-block';
     patientIdInput.style.display = 'inline-block';
     continueButton.style.display = 'block';
     cropButton.style.display = 'none';
@@ -107,6 +108,8 @@ continueButton.addEventListener('click', () => {
 
         patientIdInput.style.display = 'none';
         continueButton.style.display = 'none';
+        document.querySelector('label[for="patientId"]').style.display = 'none';
+
     })
     .catch((error) => {
         console.error('Error:', error);
