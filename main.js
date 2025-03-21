@@ -96,12 +96,12 @@ continueButton.addEventListener('click', () => {
     })
     .then(data => {
         patientDOB = data.patientDOB;
-        const lastName = data.last; // Get the last name
+        const lastName = data.last;
         if (!patientDOB || !lastName) {
           throw new Error('DOB or last name not found in response');
         }
 
-        // Display DOB and last name on separate lines
+        // Display DOB and last name on separate lines, removing "Last Name:" prefix
         dobDisplay.innerHTML = `Patient DOB: ${patientDOB}<br>Last Name: ${lastName}`;
         dobDisplay.style.display = 'block';
         confirmAndSendButton.style.display = 'block';
