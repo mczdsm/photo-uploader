@@ -10,6 +10,7 @@ const takePhotoButton = document.querySelector('.take-photo-button');
 const titleElement = document.querySelector('h1');
 const dobDisplay = document.getElementById('dobDisplay');
 const confirmAndSendButton = document.getElementById('confirmAndSendButton');
+const patientInfoDiv = document.getElementById('patientInfo');
 
 const ctx = canvas.getContext('2d');
 
@@ -64,10 +65,8 @@ cropButton.addEventListener('click', () => {
     cropper.destroy();
     cropper = null;
 
-    // Show elements after cropping
-    document.querySelector('label[for="patientId"]').style.display = 'inline-block';
-    patientIdInput.style.display = 'inline-block';
-    continueButton.style.display = 'inline-block';
+    // Show patient info section after cropping
+    patientInfoDiv.style.display = 'block';
     cropButton.style.display = 'none';
   }
 });
@@ -106,9 +105,8 @@ continueButton.addEventListener('click', () => {
         dobDisplay.style.display = 'block';
         confirmAndSendButton.style.display = 'block';
 
-        patientIdInput.style.display = 'none';
-        continueButton.style.display = 'none';
-        document.querySelector('label[for="patientId"]').style.display = 'none';
+        patientInfoDiv.style.display = 'none'; // Hide patient info section
+        document.querySelector('#confirmationContainer').style.display = 'block';
 
     })
     .catch((error) => {

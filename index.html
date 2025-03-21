@@ -20,11 +20,14 @@
   <div>
       <button id="cropButton" style="display: none;">Crop</button>
  </div>
- <div>
-      <label for="patientId" style="display: none;">Patient ID:</label>
-      <input type="text" id="patientId" style="display: none;">
-      <button id="continueButton" style="display: inline-block;">Continue</button>
-      <button id="startOverButton" style="display: inline-block;">Start Over</button>
+
+  <div id="patientInfo" style="display: none;">
+      <label for="patientId">Patient ID:</label>
+      <input type="text" id="patientId">
+      <div>
+          <button id="continueButton">Continue</button>
+          <button id="startOverButton">Start Over</button>
+      </div>
   </div>
 
   <div id="confirmationContainer" style="display: none;">
