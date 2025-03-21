@@ -67,7 +67,7 @@ cropButton.addEventListener('click', () => {
     // Show elements after cropping
     document.querySelector('label[for="patientId"]').style.display = 'inline-block';
     patientIdInput.style.display = 'inline-block';
-    continueButton.style.display = 'block';
+    continueButton.style.display = 'inline-block';
     cropButton.style.display = 'none';
   }
 });
@@ -101,7 +101,7 @@ continueButton.addEventListener('click', () => {
           throw new Error('DOB or last name not found in response');
         }
 
-        // Display DOB and last name on separate lines, removing "Last Name:" prefix
+        // Display DOB and last name on separate lines
         dobDisplay.innerHTML = `Patient DOB: ${patientDOB}<br>Last Name: ${lastName}`;
         dobDisplay.style.display = 'block';
         confirmAndSendButton.style.display = 'block';
