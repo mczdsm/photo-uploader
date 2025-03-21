@@ -102,7 +102,7 @@ continueButton.addEventListener('click', () => {
         }
 
         // Display both DOB and last name
-        dobDisplay.textContent = `Patient DOB: ${patientDOB}, Last Name: ${lastName}`;
+        dobDisplay.textContent = `Patient DOB: ${patientDOB}, Last Name: ${lastName}`; // Corrected line
         dobDisplay.style.display = 'block';
         confirmAndSendButton.style.display = 'block';
 
