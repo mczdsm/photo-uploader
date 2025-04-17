@@ -79,7 +79,7 @@ continueButton.addEventListener('click', () => {
         return;
     }
 
-    fetch('https://n8n.amcs.tech/webhook/dob-verification', {
+    fetch('http://192.168.2.15:5678/webhook/dob-verification', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ confirmAndSendButton.addEventListener('click', () => {
     formData.append('image', blob);
     formData.append('dob', patientDOB);
 
-    fetch('https://n8n.amcs.tech/webhook-test/picdemo', {
+    fetch('http://192.168.2.15:5678/webhook/picdemo', {
       method: 'POST',
       body: formData,
       headers: {
