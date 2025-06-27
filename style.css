@@ -7,9 +7,13 @@ body {
 }
 
 #canvas, #video {
-  margin-top: 20px;
+  /* margin-top: 20px; */ /* Removed this margin as it was causing the shift */
   max-width: 100%;
   border: 1px solid black;
+}
+
+#canvasWrapper {
+  margin-top: 0; /* Ensure no top margin on the wrapper */
 }
 
 /* Utility classes for showing/hiding elements */
