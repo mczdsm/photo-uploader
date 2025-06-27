@@ -12,11 +12,6 @@ body {
   border: 1px solid black;
 }
 
-#canvasContainer {
-  margin-top: 0;
-  min-height: 250px; /* Adjust as needed based on your desired crop window height */
-}
-
 /* Utility classes for showing/hiding elements */
 .hide {
   display: none !important;
