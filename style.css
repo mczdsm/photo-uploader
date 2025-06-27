@@ -27,7 +27,7 @@ body {
 
 /* Flex container for general divs */
 div {
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   display: flex;
   flex-direction: column; /* Stack items vertically by default */
   align-items: center;
