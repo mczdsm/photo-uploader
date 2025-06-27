@@ -1,21 +1,33 @@
 import Cropper from 'cropperjs';
+import config from './config.json';
 
 const photoInput = document.getElementById('photoInput');
 const canvas = document.getElementById('canvas');
 const cropButton = document.getElementById('cropButton');
 const continueButton = document.getElementById('continueButton');
 const patientIdInput = document.getElementById('patientId');
-const startOverButton = document.getElementById('startOverButton');
+const startOverButtons = document.querySelectorAll('.start-over-button'); // Select all elements with this class
 const takePhotoButton = document.querySelector('.take-photo-button');
 const titleElement = document.querySelector('h1');
 const dobDisplay = document.getElementById('dobDisplay');
 const confirmAndSendButton = document.getElementById('confirmAndSendButton');
 const patientInfoDiv = document.getElementById('patientInfo');
+const confirmationContainer = document.getElementById('confirmationContainer');
 
 const ctx = canvas.getContext('2d');
 
 let cropper;
 let patientDOB = '';
+
+// Function to reset the application state
+const resetApplication = () => {
+  window.location.reload();
+};
+
+// Add event listeners to all start over buttons
+startOverButtons.forEach(button => {
+  button.addEventListener('click', resetApplication);
+});
 
 photoInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
@@ -35,11 +47,11 @@ photoInput.addEventListener('change', (event) => {
           aspectRatio: 300 / 250,
           viewMode: 1,
         });
-        cropButton.style.display = 'inline-block';
-        canvas.style.display = 'block';
-        takePhotoButton.style.display = 'none';
-        startOverButton.style.display = 'inline-block';
-        titleElement.style.display = 'none';
+        cropButton.classList.add('show');
+        canvas.classList.add('show');
+        takePhotoButton.classList.add('hide');
+        startOverButtons.forEach(button => button.classList.add('show'));
+        titleElement.classList.add('hide');
       };
       img.src = e.target.result;
     };
@@ -66,8 +78,8 @@ cropButton.addEventListener('click', () => {
     cropper = null;
 
     // Show patient info section after cropping
-    patientInfoDiv.style.display = 'block';
-    cropButton.style.display = 'none';
+    patientInfoDiv.classList.add('show');
+    cropButton.classList.remove('show');
   }
 });
 
@@ -79,7 +91,7 @@ continueButton.addEventListener('click', () => {
         return;
     }
 
-    fetch('http://192.168.2.15:5678/webhook/dob-verification', {
+    fetch(config.apiEndpoints.dobVerification, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -102,11 +114,11 @@ continueButton.addEventListener('click', () => {
 
         // Display DOB and last name on separate lines
         dobDisplay.innerHTML = `Patient DOB: ${patientDOB}<br>Last Name: ${lastName}`;
-        dobDisplay.style.display = 'block';
-        confirmAndSendButton.style.display = 'block';
+        dobDisplay.classList.add('show');
+        confirmAndSendButton.classList.add('show');
 
-        patientInfoDiv.style.display = 'none'; // Hide patient info section
-        document.querySelector('#confirmationContainer').style.display = 'block';
+        patientInfoDiv.classList.remove('show'); // Hide patient info section
+        confirmationContainer.classList.add('show');
 
     })
     .catch((error) => {
@@ -123,7 +135,7 @@ confirmAndSendButton.addEventListener('click', () => {
     formData.append('image', blob);
     formData.append('dob', patientDOB);
 
-    fetch('http://192.168.2.15:5678/webhook/picdemo', {
+    fetch(config.apiEndpoints.picDemo, {
       method: 'POST',
       body: formData,
       headers: {
@@ -146,8 +158,4 @@ confirmAndSendButton.addEventListener('click', () => {
       alert(`Error sending image and DOB: ${error.message}`);
     });
   }, 'image/jpeg');
-});
-
-startOverButton.addEventListener('click', () => {
-  window.location.reload();
 });

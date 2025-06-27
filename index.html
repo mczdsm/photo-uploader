@@ -18,22 +18,22 @@
   </div>
 
   <div>
-      <button id="cropButton" style="display: none;">Crop</button>
+      <button id="cropButton" class="hide">Crop</button>
  </div>
 
-  <div id="patientInfo" style="display: none;">
+  <div id="patientInfo" class="hide">
       <label for="patientId">Patient ID:</label>
       <input type="text" id="patientId">
       <div>
-					<button id="startOverButton" class="start-over-button">Start Over</button>
+          <button class="start-over-button">Start Over</button>
           <button id="continueButton">Continue</button>
       </div>
   </div>
 
-  <div id="confirmationContainer" style="display: none;">
+  <div id="confirmationContainer" class="hide">
       <p id="dobDisplay"></p>
       <button id="confirmAndSendButton">Confirm and Send to EMR</button>
-		  <button id="startOverButton" class="start-over-button">Start Over</button>
+    <button class="start-over-button">Start Over</button>
   </div>
 
   <script type="module" src="/main.js"></script>

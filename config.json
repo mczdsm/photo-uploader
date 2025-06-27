@@ -1,3 +1,7 @@
 {
-  "template": "vite"
+  "template": "vite",
+  "apiEndpoints": {
+    "dobVerification": "http://192.168.2.15:5678/webhook/dob-verification",
+    "picDemo": "http://192.168.2.15:5678/webhook/picdemo"
+  }
 }
