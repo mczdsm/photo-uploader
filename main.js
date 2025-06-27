@@ -56,7 +56,7 @@ cropButton.addEventListener('click', () => {
     resizedCanvas.width = 300;
     resizedCanvas.height = 300;
     const resizedContext = resizedCanvas.getContext('2d');
-    resizedContext.drawImage(croppedCanvas, 0, 0, 300, 300);
+    resizedContext.drawImage(croppedCanvas, 0, 0, 300, 250);
 
     canvas.width = 300;
     canvas.height = 300;
