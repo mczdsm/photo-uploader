@@ -1,5 +1,6 @@
 import Cropper from 'cropperjs';
 import config from './config.json';
+import logger from './logger.js';
 
 const photoInput = document.getElementById('photoInput');
 const canvas = document.getElementById('canvas');
@@ -30,8 +31,10 @@ startOverButtons.forEach(button => {
 });
 
 photoInput.addEventListener('change', (event) => {
+  logger.log('Photo input changed');
   const file = event.target.files[0];
   if (file) {
+    logger.log('File selected', { name: file.name, size: file.size, type: file.type });
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
@@ -43,6 +46,7 @@ photoInput.addEventListener('change', (event) => {
         if (cropper) {
           cropper.destroy();
         }
+        logger.log('Image loaded, initializing Cropper');
         cropper = new Cropper(canvas, {
           aspectRatio: 300 / 250,
           viewMode: 1,
@@ -60,6 +64,7 @@ photoInput.addEventListener('change', (event) => {
 });
 
 cropButton.addEventListener('click', () => {
+  logger.log('Crop button clicked');
   if (cropper) {
     const croppedCanvas = cropper.getCroppedCanvas();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -77,6 +82,7 @@ cropButton.addEventListener('click', () => {
     cropper.destroy();
     cropper = null;
 
+    logger.log('Image cropped and resized');
     // Show patient info section after cropping
     patientInfoDiv.classList.add('show');
     cropButton.classList.remove('show');
@@ -85,6 +91,7 @@ cropButton.addEventListener('click', () => {
 
 continueButton.addEventListener('click', () => {
     const patientId = patientIdInput.value;
+    logger.log('Continue button clicked', { patientId });
 
     if (!patientId) {
         alert('Please enter a Patient ID.');
@@ -101,6 +108,7 @@ continueButton.addEventListener('click', () => {
     })
     .then(response => {
         if (!response.ok) {
+            logger.error('Network response was not ok', { status: response.status });
             throw new Error(`Network response was not ok, status: ${response.status}`);
         }
         return response.json();
@@ -112,6 +120,7 @@ continueButton.addEventListener('click', () => {
           throw new Error('DOB or last name not found in response');
         }
 
+        logger.log('DOB verification successful', { patientDOB: data.patientDOB, lastName: data.last });
         // Display DOB and last name on separate lines
         dobDisplay.innerHTML = `Patient DOB: ${patientDOB}<br>Last Name: ${lastName}`;
         dobDisplay.classList.add('show');
@@ -122,13 +131,14 @@ continueButton.addEventListener('click', () => {
 
     })
     .catch((error) => {
-        console.error('Error:', error);
+        logger.error('Error fetching DOB', { error: error.message });
         alert(`Error fetching DOB: ${error.message}`);
     });
 });
 
 confirmAndSendButton.addEventListener('click', () => {
   const patientId = patientIdInput.value;
+  logger.log('Confirm and send button clicked', { patientId });
 
   canvas.toBlob((blob) => {
     const formData = new FormData();
@@ -144,17 +154,18 @@ confirmAndSendButton.addEventListener('click', () => {
     })
     .then(response => {
       if (!response.ok) {
+        logger.error('Network response was not ok', { status: response.status });
         throw new Error(`Network response was not ok, status: ${response.status}`);
       }
       return response.text();
     })
     .then(data => {
-      console.log('Success:', data);
+      logger.log('Image and DOB sent successfully', { response: data });
       alert('Image and DOB sent successfully!');
       window.location.reload();
     })
     .catch((error) => {
-      console.error('Error:', error);
+      logger.error('Error sending image and DOB', { error: error.message });
       alert(`Error sending image and DOB: ${error.message}`);
     });
   }, 'image/jpeg');

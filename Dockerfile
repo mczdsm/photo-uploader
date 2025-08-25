@@ -22,5 +22,5 @@ EXPOSE 5173
 # Use a non-root user for security
 USER node
 
-# Serve the built app using a simple HTTP server (serve is installed globally for simplicity)
-CMD ["npx", "vite", "preview", "--port", "5173", "--host", "0.0.0.0"]
+# Start the server
+CMD ["node", "server.js"]
