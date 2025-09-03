@@ -48,7 +48,7 @@ photoInput.addEventListener('change', (event) => {
         }
         logger.log('Image loaded, initializing Cropper');
         cropper = new Cropper(canvas, {
-          aspectRatio: 300 / 250,
+          aspectRatio: config.imageSize.width / config.imageSize.height,
           viewMode: 1,
         });
         cropButton.classList.add('show');
@@ -70,13 +70,13 @@ cropButton.addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const resizedCanvas = document.createElement('canvas');
-    resizedCanvas.width = 300;
-    resizedCanvas.height = 250;
+    resizedCanvas.width = config.imageSize.width;
+    resizedCanvas.height = config.imageSize.height;
     const resizedContext = resizedCanvas.getContext('2d');
-    resizedContext.drawImage(croppedCanvas, 0, 0, 300, 250);
+    resizedContext.drawImage(croppedCanvas, 0, 0, config.imageSize.width, config.imageSize.height);
 
-    canvas.width = 300;
-    canvas.height = 250;
+    canvas.width = config.imageSize.width;
+    canvas.height = config.imageSize.height;
     ctx.drawImage(resizedCanvas, 0, 0);
 
     cropper.destroy();
